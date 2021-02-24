@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenidos %}
+
+<!-- Section: Guitarras -->
+<div class="container-fluid">
+    <div class="row">
+        <h3>Listado de Películas Actuales</h3>
+    </div>
+    {% for grupo in lista_por_categorias %}
+    <hr>
+    <h4><b>Categoría: {{grupo.nombre_categoria}}</b></h4>
+    <div class="row">
+        {% for pelicula in grupo.peliculas %}
+        <div class="col-md-6 col-lg-3">
+            <div class="card">
+                <h3 class="card-header">Película N° {{pelicula.id}}</h3>
+                <img src="{% static 'servicio/img/pelicula.jpg' %}" alt="Pelicula">
+                <div class="card-body">
+                    <h4 class="card-title">{{pelicula.titulo}}</h4>
+                    <p class="card-text">{{pelicula.descripcion}}</p>
+                    <p class="card-text">Minutos: {{pelicula.largo}}</p>
+                    <p class="card-text">Clasificacion: {{pelicula.clasificacion}}</p>
+                    <p class="card-text">Categorías:
+                    {% for categoria in pelicula.categorias.all %}
+                    {{categoria.nombre}}
+                    {% endfor %}</p>
+                    <a href="{% url 'servicio:detalle_pelicula' pk=pelicula.id%}" class="btn btn-dark">Ver</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+<!-- End Section: Guitarras -->
+
+{% endblock %}

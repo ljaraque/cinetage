@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'xtage21.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'xtage2',
+        'NAME': 'xtage',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
-        'PORT': '5434',
+        'PORT': '5432',
     }
 }
 
@@ -132,3 +132,5 @@ STATICFILES_DIRS = [
 
 
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'panel.Usuario'

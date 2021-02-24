@@ -28,24 +28,39 @@ class Pelicula(models.Model):
     costo_reemplazo = models.DecimalField(max_digits=5, decimal_places=2, default=19.99)
     clasificacion = models.CharField(max_length=25)
     ultima_actualizacion = models.DateTimeField(auto_now=True)
-    idioma = models.ForeignKey(Idioma, on_delete=models.CASCADE)
-    categorias = models.ManyToManyField(Categoria)
-    actores = models.ManyToManyField(Actor)
     #special_features Omitido
     #full_text Omitido
+    
+    #related
+    idioma = models.ForeignKey(Idioma, null=True, on_delete=models.CASCADE)
+    categorias = models.ManyToManyField(Categoria)
+    actores = models.ManyToManyField(Actor)
+
+    #temp
+    temporal_idioma = models.IntegerField()
+
 
 
 class Inventario(models.Model):
     id_tienda = models.IntegerField()
-    peliculas = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
     ultima_actualizacion = models.DateTimeField(auto_now=True)
+    
+    #related
+    pelicula = models.ForeignKey(Pelicula, null=True, on_delete=models.CASCADE)
+
+    #temp
+    temporal_pelicula= models.IntegerField()
 
 
 class Arriendo(models.Model):
     fecha_arriendo = models.DateTimeField()
-    inventario = models.ForeignKey(Inventario, default=1, on_delete=models.DO_NOTHING)
-    temporal = models.IntegerField()
     id_cliente = models.IntegerField()
     fecha_devolucion = models.DateTimeField(null=True)
     id_empleado = models.IntegerField()
     ultima_actualizacion = models.DateTimeField(auto_now=True)
+
+    #related
+    inventario = models.ForeignKey(Inventario, null=True, on_delete=models.CASCADE)
+
+    #temp
+    temporal_inventario = models.IntegerField()

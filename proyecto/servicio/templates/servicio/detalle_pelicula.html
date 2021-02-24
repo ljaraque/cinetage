@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenidos %}
+
+<h2>Detalle Película {{detalle_pelicula.id}}</h2>
+<h4>Título: {{detalle_pelicula.titulo}}</h4>
+<img src="{% static 'servicio/img/pelicula2.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
+
+<h3>Descripción</h3>
+<h4>"{{detalle_pelicula.descripcion}}"</h4>
+
+<h3>Duración</h3>
+<h4>{{detalle_pelicula.largo}} Minutos</h4>
+
+<h3>Actores</h3>
+<h4>
+{% for actor in detalle_pelicula.actores.all %}
+{{actor.nombre}} {{actor.apellido}} |
+{% endfor %}
+</h4>
+
+<h3>Año Publicación</h3>
+<h4>{{detalle_pelicula.agno_publicacion}}</h4>
+
+<h3>Idioma</h3>
+<h4>{{detalle_pelicula.idioma.nombre}}</h4>
+
+<h3>Categoría</h3>
+{% for categoria in detalle_pelicula.categorias.all %}
+<h4>{{categoria.nombre}}</h4>
+{% endfor %}
+
+<h3>Clasificación</h3>
+<h1 class="btn btn-primary font-weight-bold">{{detalle_pelicula.clasificacion}}</h1>
+
+<br><br><br>
+
+<footer class="footer bg-dark text-center">
+    <p class="text-muted">&copy; 2021 Cinetage</p>
+    <p class="text-muted">Xtage21</p>
+</footer>
+{% endblock %}

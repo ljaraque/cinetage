@@ -2,15 +2,14 @@
 {% load static %}
 
 {% block contenidos %}
+
 <h1>Página Principal</h1>
 <p>Esta es la página principal</p>
-<img src="{% static 'servicio/img/foto1.jpg' %}" width="50%" style="min-width:400px">
-
+<img src="{% static 'servicio/img/foto1.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
 <hr>
-<h1 id="empresa">Empresa</h1>
 
-<p>
-    Lorem Ipsum es simplemente el texto de relleno de las 
+<h1 id="empresa">Empresa</h1>
+<p>Lorem Ipsum es simplemente el texto de relleno de las 
     imprentas y archivos de texto. Lorem Ipsum ha sido el
      texto de relleno estándar de las industrias desde el 
      año 1500, cuando un impresor (N. del T. persona que se 
@@ -24,13 +23,11 @@
      de autoedición, como por ejemplo Aldus PageMaker, el cual 
      incluye versiones de Lorem Ipsum.
 </p>
-<img src="{% static 'servicio/img/foto2.jpg' %}" width="50%" style="min-width:400px">
+<img src="{% static 'servicio/img/foto2.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
 
 <hr>
 <h1 id="servicios">Servicios</h1>
-
-<p>
-    Lorem Ipsum es simplemente el texto de relleno de las 
+<p>Lorem Ipsum es simplemente el texto de relleno de las 
     imprentas y archivos de texto. Lorem Ipsum ha sido el
      texto de relleno estándar de las industrias desde el 
      año 1500, cuando un impresor (N. del T. persona que se 
@@ -44,18 +41,19 @@
      de autoedición, como por ejemplo Aldus PageMaker, el cual 
      incluye versiones de Lorem Ipsum.
 </p>
-
-<img src="{% static 'servicio/img/foto3.jpg' %}" width="50%" style="min-width:400px">
+<img src="{% static 'servicio/img/foto3.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
 
 <hr>
 <h1 id="contacto">Contacto</h1>
-
-<p>Email: info@cinetage.com</p>
-<p>Teléfono: +56 00 000 0000</p>
-<p>Dirección: Calle Larga 345, Los Andes</p>
-
-<img src="{% static 'servicio/img/foto4.jpg' %}" width="50%" style="min-width:400px">
+<p>Email: info@Cinetage.org</p>
+<p>Telófono: +56 00 000 0000</p>
+<p>Rirección: Calle Django 22</p>
+<img src="{% static 'servicio/img/foto4.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
 
 <br><br><br>
 
+<footer class="footer bg-dark text-center">
+    <p class="text-muted">&copy; 2021 Cinetage</p>
+    <p class="text-muted">Xtage21</p>
+</footer>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<h1>Actualizar Usuario</h1>
+<form action=""  method="post" novalidate>
+    {% csrf_token %}
+    <table border="1">
+        {{form.as_table}}
+    </table>
+    <input type="submit"  class="btn btn-primary" value="Crear">
+    <a href="{% url 'panel:usuarios' %}"><input class="btn btn-primary" value="Cancelar"></a>
+</form>
+
+{% endblock %}
