@@ -14,5 +14,4 @@ Este repositorio contiene el avance actual de desarrollo de CINETAGE/XTAGE21.
 
 Se disponibilizará prontamente un enlace de demo del sistema en operación.  
 
-Enlace:
 <a href="#">Enlace demo</a>
