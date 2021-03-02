@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container-fluid bg-light custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <h2 class="text-center">Películas</h2>
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+
+        <div class="col-sm-3">
+            <a class="btn btn-success"
+                href="{% url 'servicio:crear_pelicula' %}">
+                    + Agregar Película
+            </a>
+        </div>
+
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Año</th>
+                        <th>Duración</th>
+                        <th>Clasificación</th>
+                        <th>Actores</th>
+                        <th>Idioma</th>
+                        <th>Categoría</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pelicula in peliculas %}
+                    <tr>
+                        <td>{{ pelicula.id }}</td>
+                        <td>{{ pelicula.titulo }}</td>
+                        <td>{{ pelicula.descripcion }}</td>
+                        <td>{{ pelicula.agno_publicacion }}</td>
+                        <td>{{ pelicula.largo }}</td>
+                        <td>{{ pelicula.clasificacion }}</td>
+                        <td>{% for actor in  pelicula.actores.all %} {{ actor }}, {% endfor %}</td>
+                        <td>{{ pelicula.idioma }}</td>
+                        <td>{% for categoria in pelicula.categorias.all %} {{ categoria }}, {% endfor %}</td>
+                        <td style="display: inline-block;">
+                            <a class="btn btn-danger btn-sm" href="{% url 'servicio:editar_pelicula' pk=pelicula.id %}">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'servicio:eliminar_pelicula' pk=pelicula.id %}">X</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

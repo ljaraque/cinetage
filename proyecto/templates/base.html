@@ -64,7 +64,7 @@
                 </a>
               </li>
               {% if user.is_authenticated %}
-              {% if user.rol == "operador" or user.rol == "cliente" %}
+              {% if user.rol == "cliente" %}
               <li class="nav-item">
                 <a 
                   class="nav-link scroll-trigger" 
@@ -80,6 +80,30 @@
                   href="{% url 'servicio:lista_peliculas' %}">
                     Xtage21
                 </a>
+              </li>
+              {% else %}
+              <li class="nav-item dropdown">
+                <a
+                    href="#"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Mantener <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'servicio:peliculas' %}">
+                      Películas
+                    </a>
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'panel:usuarios' %}">
+                      USUARIOS
+                    </a>
+                </div>
               </li>
               {% endif %}
               <li class="nav-item">
@@ -130,9 +154,8 @@
     </div>
     <!-- End Section: Contacto -->
 
-    <footer class="footer bg-dark text-center">
-      <p class="text-muted">&copy; 2021 CINETAGE</p>
-      <p class="text-muted">Xtage21</p>
+    <footer class="footer bg-dark text-center fixed-bottom">
+      <p style="margin:5px;color:white;">&copy; 2021 CINETAGE</p>
     </footer>
 
     <!-- jQuery, Popper.js, Bootstrap JS -->

@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect, HttpResponse
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
+from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Pelicula, Categoria
+from django.urls import reverse_lazy
 
 
 # cliente o subcliente
@@ -15,7 +17,13 @@ def usuario_permitido2(usuario):
 # Create your views here.
 
 def principal(request):
-    return render(request, 'servicio/principal.html')
+    context=dict()
+    if 'num_visitas' not in request.session:
+        request.session['num_visitas']= 1
+    else:
+        request.session['num_visitas'] += 1
+    context['num_visitas']=request.session['num_visitas']
+    return render(request, 'servicio/principal.html', context)
 
 
 # Lista de Películas
@@ -58,3 +66,55 @@ class DetallePelicula(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def test_func(self):
         return usuario_permitido2(self.request.user)
+
+
+# CRUD Películas
+
+# C de CRUD
+class CrearPelicula(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Pelicula
+    fields = ['titulo','descripcion','agno_publicacion','largo','clasificacion',
+                'idioma','categorias', 'actores']
+    template_name = 'servicio/crear_pelicula.html'
+    success_url = reverse_lazy('servicio:peliculas')
+
+    def test_func(self):
+        return self.request.user.rol=="operador"
+
+# R de CRUD
+class PeliculasCV(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Pelicula
+    context_object_name = 'peliculas'
+    template_name = 'servicio/peliculas.html'
+
+    def test_func(self):
+        return self.request.user.rol=="operador"
+'''
+class Peliculas(LoginRequiredMixin, UserPassesTestMixin, View):
+    model = Pelicula
+    template_name = 'servicio/peliculas.html'
+    def get(self, request):
+        print("hola")
+        context = {'peliculas':Pelicula.objects.all().order_by('id')}
+        return render(request, 'servicio/peliculas.html', context)
+'''
+
+# U de CRUD
+class EditarPelicula(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Pelicula
+    fields = ['titulo','descripcion','agno_publicacion','largo','clasificacion',
+                'idioma','categorias', 'actores']
+    template_name = 'servicio/editar_pelicula.html'
+    success_url = reverse_lazy('servicio:peliculas')
+
+    def test_func(self):
+        return self.request.user.rol=="operador"
+
+# D de CRUD
+class EliminarPelicula(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Pelicula
+    template_name = 'servicio/eliminar_pelicula.html'
+    success_url = reverse_lazy('servicio:peliculas')
+
+    def test_func(self):
+        return self.request.user.rol=="operador"
