@@ -1,7 +1,7 @@
 # Proyecto CINETAGE/XTAGE21
-
+**Actualizado: 2021-03-02**  
 ## Introducción:  
-Este repositorio contiene el avance actual de desarrollo de CINETAGE/XTAGE21.  
+Este repositorio contiene el avance actual de desarrollo del proyecto de estudio CINETAGE/XTAGE21.  
 
 ## Detalles:  
 **2021-03-02:**  
