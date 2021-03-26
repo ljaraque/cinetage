@@ -37,6 +37,8 @@ def usuario_permitido_operador(usuario):
 # C de CRUD Usuario con rol="cliente"
 from .forms import FormularioCrearUserCliente
 from django.contrib.auth.forms import UserCreationForm
+
+
 class CrearUsuarioCliente(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = User
     form_class = FormularioCrearUserCliente
@@ -95,7 +97,7 @@ class ListaUsuarios(LoginRequiredMixin, UserPassesTestMixin, ListView):
         if self.request.user.rol == "operador":
             return User.objects.filter(rol__in=["cliente", "subcliente"]).order_by("id")
         if self.request.user.rol == "cliente":
-            return User.objects.filter(rol__in=["subcliente"]).filter(principal=self.request.user).order_by("id")
+            return User.objects.filter(principal=self.request.user).order_by("id")
 
 
 ###############################################################################

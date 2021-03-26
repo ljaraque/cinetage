@@ -14,8 +14,8 @@ def usuario_permitido2(usuario):
         validacion = False
     return validacion
 
-# Create your views here.
 
+# Create your views here.
 def principal(request):
     context=dict()
     if 'num_visitas' not in request.session:
@@ -27,7 +27,6 @@ def principal(request):
 
 
 # Lista de Películas
-
 class ListaPeliculas(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Pelicula
     context_object_name = 'lista_por_categorias'
@@ -42,23 +41,17 @@ class ListaPeliculas(LoginRequiredMixin, UserPassesTestMixin, ListView):
         print(categorias_nombres)
         peliculas_por_categorias=[]
         for categoria in categorias_nombres:
-            peliculas=Pelicula.objects.all()[:300]
-            peliculas_categoria = []
-            for pelicula in peliculas:
-                if len(peliculas_categoria)>=4:
-                    break
-                if categoria == pelicula.categorias.all()[0].nombre:
-                    peliculas_categoria.append(pelicula)
+            peliculas_categoria=Pelicula.objects.filter(categorias__nombre=categoria)[:4]
             peliculas_por_categorias.append({'nombre_categoria': categoria, 
                                             'peliculas': peliculas_categoria})
         queryset = peliculas_por_categorias
         return queryset
 
     def test_func(self):
-        return usuario_permitido2(self.request.user)
+        return self.request.user.rol == "cliente" or self.request.user.rol == "subcliente"
+
 
 # Detalle Pelicula
-
 class DetallePelicula(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Pelicula
     context_object_name = 'detalle_pelicula'
@@ -69,7 +62,6 @@ class DetallePelicula(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
 
 # CRUD Películas
-
 # C de CRUD
 class CrearPelicula(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Pelicula
@@ -81,6 +73,7 @@ class CrearPelicula(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.rol=="operador"
 
+
 # R de CRUD
 class PeliculasCV(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Pelicula
@@ -89,15 +82,7 @@ class PeliculasCV(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def test_func(self):
         return self.request.user.rol=="operador"
-'''
-class Peliculas(LoginRequiredMixin, UserPassesTestMixin, View):
-    model = Pelicula
-    template_name = 'servicio/peliculas.html'
-    def get(self, request):
-        print("hola")
-        context = {'peliculas':Pelicula.objects.all().order_by('id')}
-        return render(request, 'servicio/peliculas.html', context)
-'''
+
 
 # U de CRUD
 class EditarPelicula(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -110,6 +95,7 @@ class EditarPelicula(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.rol=="operador"
 
+
 # D de CRUD
 class EliminarPelicula(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Pelicula
@@ -118,3 +104,10 @@ class EliminarPelicula(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.rol=="operador"
+
+
+def mas_arrendadas(request):
+    context=dict()
+
+    return render(request, 'servicio/mas_arrendadas.html', context)
+
